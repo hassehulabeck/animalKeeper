@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Plant;
 use Illuminate\Support\Facades\Input;
+use Validator;
 
 
 class PlantController extends Controller
@@ -40,11 +41,21 @@ class PlantController extends Controller
      */
     public function store(Request $request)
     {
-        Plant::create($request->all());
-        $plants = Plant::all();
-        return view('plants.index', [
-            'plants' => $plants
+        // Börja med en validering
+        $validator = Validator::make($request->all(), [
+            'name'    => 'required|unique:plants|max:100',
+            'height'  => 'required|numeric'
         ]);
+
+        if ($validator->fails()) {
+            return redirect('plants/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        Plant::create($request->all());
+
+        return redirect('plants');
     }
 
     /**
