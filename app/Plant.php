@@ -8,4 +8,5 @@ class Plant extends Model
 {
     public $timestamps = false;
     protected $primaryKey = 'plant_id';
+    protected $fillable = ['name', 'height'];
 }

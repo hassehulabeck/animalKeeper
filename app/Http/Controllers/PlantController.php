@@ -27,7 +27,7 @@ class PlantController extends Controller
      */
     public function create()
     {
-        //
+        return view('plants.create');
     }
 
     /**
@@ -38,7 +38,11 @@ class PlantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Plant::create($request->all());
+        $plants = Plant::all();
+        return view('plants.index', [
+            'plants' => $plants
+        ]);
     }
 
     /**
@@ -49,7 +53,10 @@ class PlantController extends Controller
      */
     public function show($id)
     {
-        //
+        $plant = Plant::findOrFail($id);
+        return view('plants.show', [
+            'plant' => $plant
+        ]);
     }
 
     /**
