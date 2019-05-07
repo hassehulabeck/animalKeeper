@@ -15,3 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/animals', 'AnimalController@index');
+
+Route::get('/animals/{id}', 'AnimalController@show');
+
+Route::resource('/plants','PlantController');

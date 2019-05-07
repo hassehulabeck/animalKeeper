@@ -9,8 +9,15 @@ class AnimalController extends Controller
 {
     public function index() {
         $animals = Animal::all();
-        return view('welcome', [
+        return view('animalList', [
             'animals' => $animals
+        ]);
+    }
+
+    public function show($id) {
+        $animal = Animal::find($id);
+        return view('singleAnimal', [
+            'animal' => $animal
         ]);
     }
 }
